@@ -6,6 +6,16 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ## 🛠️ Open Source Contributions
 
+### 🗓️ [paged_vertical_calendar](https://pub.dev/packages/paged_vertical_calendar)
+
+> A simple paginated framework for implementing calendar based interfaces.
+
+- ✅ **[PR #50](https://github.com/casvanluijtelaar/paged_vertical_calendar/pull/50)**  
+  Update infinite_scroll_pagination dependency to 5.1.0.
+
+
+---
+
 ### 🔐 [Amazon Payfort Flutter Plugin](https://github.com/vvvirani/flutter_amazon_payfort)
 
 > A Flutter plugin for integrating Amazon Payfort payment gateway.
