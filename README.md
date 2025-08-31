@@ -1,7 +1,6 @@
 # 🌍 Open Source Contributions & Technical Writings
 
 Welcome! This repository highlights my journey contributing to open-source software and sharing in-depth technical insights with the developer community.
-- [flutter #173925](https://github.com/flutter/flutter/pull/173925) - Add SliverGrid.list convenience constructor
 
 ---
 
