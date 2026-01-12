@@ -14,6 +14,14 @@ Welcome! This repository highlights my journey contributing to open-source softw
   Add SliverGrid.list convenience constructor.
 
 ---
+### 💙 [flutter_secure_storage](https://github.com/juliansteenbakker/flutter_secure_storage)
+
+> A Flutter plugin for securely storing sensitive data using encrypted storage.
+
+- 🚀 **[PR #989](https://github.com/juliansteenbakker/flutter_secure_storage/pull/989)**  
+  Add Secure Enclave Support to iOS/macOS
+
+---
 
 ### 🗓️ [paged_vertical_calendar](https://pub.dev/packages/paged_vertical_calendar)
 
