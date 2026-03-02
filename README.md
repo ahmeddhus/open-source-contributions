@@ -41,6 +41,8 @@ Welcome! This repository highlights my journey contributing to open-source softw
   Handled Apple Pay response and exposed payment status to improve SDK integration.
 - 🧩 **[PR #33](https://github.com/vvvirani/flutter_amazon_payfort/pull/33)**  
   Introduced a `Command` enum to support custom command types and improve code maintainability.
+- 📏 **[PR #40](https://github.com/vvvirani/flutter_amazon_payfort/pull/40)**  
+  Fix Android PayFort request mapping for saved card token (token_name).
 
 ---
 
