@@ -6,6 +6,17 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ## 🛠️ Open Source Contributions
 
+### 📦 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
+
+> Bluetooth Classic (RFCOMM/SPP) serial plugin for Flutter. Discover, pair, connect and stream bytes to ESP32, Arduino, HC-05 and thermal printers on Android, Windows, macOS, Linux and iOS.
+
+- ✅ **[PR #10](https://github.com/almasumdev/flutter_classic_bluetooth/pull/10)**  
+  fix(windows): fall back to an RFCOMM channel when UUID connect fails
+- ✅ **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
+  fix(macos): stop crash when discovery is started a second time
+
+---
+
 ### 💙 [Flutter framwork](https://github.com/flutter/flutter)
 
 > A Flutter plugin for integrating Amazon Payfort payment gateway.
