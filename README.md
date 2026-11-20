@@ -6,31 +6,32 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ## 🛠️ Open Source Contributions
 
-### 📦 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
+### 📶 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
 
 > Bluetooth Classic (RFCOMM/SPP) serial plugin for Flutter. Discover, pair, connect and stream bytes to ESP32, Arduino, HC-05 and thermal printers on Android, Windows, macOS, Linux and iOS.
 
-- ✅ **[PR #10](https://github.com/almasumdev/flutter_classic_bluetooth/pull/10)**  
-  fix(windows): fall back to an RFCOMM channel when UUID connect fails
-- ✅ **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
-  fix(macos): stop crash when discovery is started a second time
+- 🪟 **[PR #10](https://github.com/almasumdev/flutter_classic_bluetooth/pull/10)**  
+  Added an RFCOMM channel fallback on Windows when connecting by UUID fails.
+- 🍎 **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
+  Fixed a macOS crash when Bluetooth discovery is started a second time.
 
 ---
 
-### 💙 [Flutter framwork](https://github.com/flutter/flutter)
+### 💙 [Flutter framework](https://github.com/flutter/flutter)
 
-> A Flutter plugin for integrating Amazon Payfort payment gateway.
+> Google's UI toolkit for building natively compiled apps for mobile, web and desktop from a single codebase.
 
 - 🚀 **[PR #173925](https://github.com/flutter/flutter/pull/173925)**  
   Add SliverGrid.list convenience constructor.
 
 ---
+
 ### 🔐 [flutter_secure_storage](https://github.com/juliansteenbakker/flutter_secure_storage)
 
 > A Flutter plugin for securely storing sensitive data using encrypted storage.
 
 - 🛡️ **[PR #989](https://github.com/juliansteenbakker/flutter_secure_storage/pull/989)**  
-  Add Secure Enclave Support to iOS/macOS
+  Add Secure Enclave support to iOS/macOS.
 
 ---
 
