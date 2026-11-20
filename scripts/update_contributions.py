@@ -29,8 +29,14 @@ IGNORE_FILE = ".github/contributions-ignore"
 
 PROFILE_HEADING = "### 🔓 Open Source Contributions"
 PORTFOLIO_HEADING = "## 🛠️ Open Source Contributions"
-# repos that always stay at the top of both lists; new PRs go below them
-PINNED = [r.strip() for r in os.environ.get("PINNED_REPOS", "flutter/flutter").split(",") if r.strip()]
+# These repos always stay at the top of both lists, in this order.
+# Everything else comes after them, newest first.
+PINNED = [r.strip() for r in os.environ.get("PINNED_REPOS", ",".join([
+    "flutter/flutter",
+    "juliansteenbakker/flutter_secure_storage",
+    "almasumdev/flutter_classic_bluetooth",
+    "vvvirani/flutter_amazon_payfort",
+])).split(",") if r.strip()]
 
 
 def api(path, params=None):
@@ -81,8 +87,26 @@ def repo_pattern(owner, repo):
     return re.compile(rf"github\.com/{re.escape(owner)}/{re.escape(repo)}(?![\w.-])", re.I)
 
 
-def is_pinned(text):
-    return any(repo_pattern(*r.split("/")).search(text) for r in PINNED)
+def rank(text):
+    """Position in PINNED of the first pinned repo linked in text, else len(PINNED)."""
+    for i, r in enumerate(PINNED):
+        if repo_pattern(*r.split("/")).search(text):
+            return i
+    return len(PINNED)
+
+
+def sort_profile(lines):
+    start = lines.index(PROFILE_HEADING) + 1
+    while start < len(lines) and not lines[start].startswith("- "):
+        start += 1
+    end = start
+    while end < len(lines) and lines[end].startswith("- "):
+        end += 1
+    items = lines[start:end]
+    more = [l for l in items if "pull/" not in l]  # the "More in my portfolio" link stays last
+    prs = sorted((l for l in items if "pull/" in l), key=rank)  # stable: keeps newest first
+    lines[start:end] = prs + more
+    return lines
 
 
 def update_profile(text, new):
@@ -90,18 +114,10 @@ def update_profile(text, new):
     start = lines.index(PROFILE_HEADING) + 1
     while start < len(lines) and not lines[start].startswith("- "):
         start += 1
-    after_pinned = start
-    while after_pinned < len(lines) and lines[after_pinned].startswith("- ") \
-            and is_pinned(lines[after_pinned]):
-        after_pinned += 1
     # newest goes first, so insert oldest-first at the same spot
     for pr in new:
-        pinned = is_pinned(pr["url"])
-        lines.insert(start if pinned else after_pinned,
-                     f"- [{pr['repo']} #{pr['number']}]({pr['url']}) - {pr['title']}")
-        if pinned:
-            after_pinned += 1
-    return "\n".join(lines)
+        lines.insert(start, f"- [{pr['repo']} #{pr['number']}]({pr['url']}) - {pr['title']}")
+    return "\n".join(sort_profile(lines))
 
 
 def update_portfolio(text, new):
@@ -144,20 +160,35 @@ def update_portfolio(text, new):
             ins = top + 1
             while ins < len(lines) and lines[ins].strip() == "":
                 ins += 1
-            # skip past pinned sections (e.g. Flutter) so they stay on top
-            if not is_pinned(pr["url"]):
-                while ins < len(lines) and lines[ins].startswith("### "):
-                    end = ins + 1
-                    while end < len(lines) and not (lines[end].strip() == "---"
-                                                    or lines[end].startswith("#")):
-                        end += 1
-                    if not is_pinned("\n".join(lines[ins:end])):
-                        break
-                    ins = end + 1 if end < len(lines) and lines[end].strip() == "---" else end
-                    while ins < len(lines) and lines[ins].strip() == "":
-                        ins += 1
             lines[ins:ins] = block
-    return "\n".join(lines)
+    return "\n".join(sort_portfolio(lines))
+
+
+def sort_portfolio(lines):
+    """Reorder the "### " sections (each ending in "---") by PINNED rank."""
+    top = lines.index(PORTFOLIO_HEADING) + 1
+    while top < len(lines) and lines[top].strip() == "":
+        top += 1
+    sections, i = [], top
+    while i < len(lines) and lines[i].startswith("### "):
+        j = i + 1
+        while j < len(lines) and lines[j].strip() != "---" and not lines[j].startswith("#"):
+            j += 1
+        if j >= len(lines) or lines[j].strip() != "---":
+            return lines  # unexpected layout: leave the order alone
+        body = lines[i:j]
+        while body[-1].strip() == "":
+            body.pop()
+        sections.append(body)
+        i = j + 1
+        while i < len(lines) and lines[i].strip() == "":
+            i += 1
+    sections.sort(key=lambda s: rank("\n".join(s)))
+    out = []
+    for s in sections:
+        out += s + ["", "---", ""]
+    lines[top:i] = out
+    return lines
 
 
 def main():
@@ -176,12 +207,12 @@ def main():
            and p["url"].lower() not in ignores
            and f"{p['owner']}/{p['repo']}".lower() not in ignores]
 
-    if not new:
-        print("No new merged PRs.")
-        return
     for p in new:
         print(f"Adding {p['owner']}/{p['repo']}#{p['number']}: {p['title']}")
     out = (update_profile if args.mode == "profile" else update_portfolio)(text, new)
+    if out == text:
+        print("No new merged PRs.")
+        return
     if args.dry_run:
         sys.stdout.write(out)
     else:

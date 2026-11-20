@@ -15,17 +15,6 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ---
 
-### 📶 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
-
-> Bluetooth Classic (RFCOMM/SPP) serial plugin for Flutter. Discover, pair, connect and stream bytes to ESP32, Arduino, HC-05 and thermal printers on Android, Windows, macOS, Linux and iOS.
-
-- 🪟 **[PR #10](https://github.com/almasumdev/flutter_classic_bluetooth/pull/10)**  
-  Added an RFCOMM channel fallback on Windows when connecting by UUID fails.
-- 🍎 **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
-  Fixed a macOS crash when Bluetooth discovery is started a second time.
-
----
-
 ### 🔐 [flutter_secure_storage](https://github.com/juliansteenbakker/flutter_secure_storage)
 
 > A Flutter plugin for securely storing sensitive data using encrypted storage.
@@ -35,13 +24,14 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ---
 
-### 🗓️ [paged_vertical_calendar](https://pub.dev/packages/paged_vertical_calendar)
+### 📶 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
 
-> A simple paginated framework for implementing calendar based interfaces.
+> Bluetooth Classic (RFCOMM/SPP) serial plugin for Flutter. Discover, pair, connect and stream bytes to ESP32, Arduino, HC-05 and thermal printers on Android, Windows, macOS, Linux and iOS.
 
-- ✅ **[PR #50](https://github.com/casvanluijtelaar/paged_vertical_calendar/pull/50)**  
-  Update infinite_scroll_pagination dependency to 5.1.0.
-
+- 🪟 **[PR #10](https://github.com/almasumdev/flutter_classic_bluetooth/pull/10)**  
+  Added an RFCOMM channel fallback on Windows when connecting by UUID fails.
+- 🍎 **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
+  Fixed a macOS crash when Bluetooth discovery is started a second time.
 
 ---
 
@@ -55,6 +45,15 @@ Welcome! This repository highlights my journey contributing to open-source softw
   Introduced a `Command` enum to support custom command types and improve code maintainability.
 - 📏 **[PR #40](https://github.com/vvvirani/flutter_amazon_payfort/pull/40)**  
   Fix Android PayFort request mapping for saved card token (token_name).
+
+---
+
+### 🗓️ [paged_vertical_calendar](https://pub.dev/packages/paged_vertical_calendar)
+
+> A simple paginated framework for implementing calendar based interfaces.
+
+- ✅ **[PR #50](https://github.com/casvanluijtelaar/paged_vertical_calendar/pull/50)**  
+  Update infinite_scroll_pagination dependency to 5.1.0.
 
 ---
 
