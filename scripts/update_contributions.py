@@ -29,6 +29,8 @@ IGNORE_FILE = ".github/contributions-ignore"
 
 PROFILE_HEADING = "### 🔓 Open Source Contributions"
 PORTFOLIO_HEADING = "## 🛠️ Open Source Contributions"
+# repos that always stay at the top of both lists; new PRs go below them
+PINNED = [r.strip() for r in os.environ.get("PINNED_REPOS", "flutter/flutter").split(",") if r.strip()]
 
 
 def api(path, params=None):
@@ -79,14 +81,26 @@ def repo_pattern(owner, repo):
     return re.compile(rf"github\.com/{re.escape(owner)}/{re.escape(repo)}(?![\w.-])", re.I)
 
 
+def is_pinned(text):
+    return any(repo_pattern(*r.split("/")).search(text) for r in PINNED)
+
+
 def update_profile(text, new):
     lines = text.split("\n")
-    i = lines.index(PROFILE_HEADING) + 1
-    while i < len(lines) and not lines[i].startswith("- "):
-        i += 1
+    start = lines.index(PROFILE_HEADING) + 1
+    while start < len(lines) and not lines[start].startswith("- "):
+        start += 1
+    after_pinned = start
+    while after_pinned < len(lines) and lines[after_pinned].startswith("- ") \
+            and is_pinned(lines[after_pinned]):
+        after_pinned += 1
     # newest goes first, so insert oldest-first at the same spot
     for pr in new:
-        lines.insert(i, f"- [{pr['repo']} #{pr['number']}]({pr['url']}) - {pr['title']}")
+        pinned = is_pinned(pr["url"])
+        lines.insert(start if pinned else after_pinned,
+                     f"- [{pr['repo']} #{pr['number']}]({pr['url']}) - {pr['title']}")
+        if pinned:
+            after_pinned += 1
     return "\n".join(lines)
 
 
@@ -130,6 +144,18 @@ def update_portfolio(text, new):
             ins = top + 1
             while ins < len(lines) and lines[ins].strip() == "":
                 ins += 1
+            # skip past pinned sections (e.g. Flutter) so they stay on top
+            if not is_pinned(pr["url"]):
+                while ins < len(lines) and lines[ins].startswith("### "):
+                    end = ins + 1
+                    while end < len(lines) and not (lines[end].strip() == "---"
+                                                    or lines[end].startswith("#")):
+                        end += 1
+                    if not is_pinned("\n".join(lines[ins:end])):
+                        break
+                    ins = end + 1 if end < len(lines) and lines[end].strip() == "---" else end
+                    while ins < len(lines) and lines[ins].strip() == "":
+                        ins += 1
             lines[ins:ins] = block
     return "\n".join(lines)
 

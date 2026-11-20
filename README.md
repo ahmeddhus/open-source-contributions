@@ -6,6 +6,15 @@ Welcome! This repository highlights my journey contributing to open-source softw
 
 ## 🛠️ Open Source Contributions
 
+### 💙 [Flutter framework](https://github.com/flutter/flutter)
+
+> Google's UI toolkit for building natively compiled apps for mobile, web and desktop from a single codebase.
+
+- 🚀 **[PR #173925](https://github.com/flutter/flutter/pull/173925)**  
+  Add SliverGrid.list convenience constructor.
+
+---
+
 ### 📶 [flutter_classic_bluetooth](https://github.com/almasumdev/flutter_classic_bluetooth)
 
 > Bluetooth Classic (RFCOMM/SPP) serial plugin for Flutter. Discover, pair, connect and stream bytes to ESP32, Arduino, HC-05 and thermal printers on Android, Windows, macOS, Linux and iOS.
@@ -14,15 +23,6 @@ Welcome! This repository highlights my journey contributing to open-source softw
   Added an RFCOMM channel fallback on Windows when connecting by UUID fails.
 - 🍎 **[PR #11](https://github.com/almasumdev/flutter_classic_bluetooth/pull/11)**  
   Fixed a macOS crash when Bluetooth discovery is started a second time.
-
----
-
-### 💙 [Flutter framework](https://github.com/flutter/flutter)
-
-> Google's UI toolkit for building natively compiled apps for mobile, web and desktop from a single codebase.
-
-- 🚀 **[PR #173925](https://github.com/flutter/flutter/pull/173925)**  
-  Add SliverGrid.list convenience constructor.
 
 ---
 
